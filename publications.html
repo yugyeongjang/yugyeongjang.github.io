@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>publications · yugyeong jang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { padding: 50px 0 36px; }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+  }
+
+  .page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 0.75rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed #333;
+  }
+  .page-head h1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+  }
+  .page-head .meta {
+    font-size: 11px;
+    color: #666;
+  }
+  .page-head .meta .num { color: #c8f04e; }
+
+  .pub {
+    padding: 1.5rem 0;
+    border-bottom: 1px dashed #222;
+  }
+  .pub:last-child { border-bottom: none; }
+
+  .pub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+    gap: 1rem;
+  }
+  .pub-idx {
+    color: #c8f04e;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .pub-venue {
+    color: #888;
+    font-size: 11px;
+    font-style: italic;
+    text-align: right;
+  }
+  .pub-year {
+    color: #fff;
+    margin-right: 0.5rem;
+  }
+
+  .pub-title {
+    font-size: 15px;
+    color: #fff;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .pub-title:hover {
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+  }
+
+  .pub-authors {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 0.75rem;
+  }
+  .pub-authors .me { color: #fff; font-weight: 500; }
+
+  .pub-abstract {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    max-width: 720px;
+  }
+
+  .pub-links {
+    font-size: 11px;
+  }
+  .pub-links a {
+    color: #c8f04e;
+    margin-right: 0.75rem;
+  }
+  .pub-links a:hover {
+    background: #c8f04e;
+    color: #000;
+    text-decoration: none;
+  }
+
+  .back {
+    display: inline-block;
+    margin-top: 2rem;
+    font-size: 11px;
+    color: #888;
+    text-decoration: none;
+  }
+  .back:hover { color: #c8f04e; background: none; }
+
+  @media (max-width: 720px) {
+    .container { padding: 1rem; }
+    .pub-header { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+    .pub-venue { text-align: left; }
+    .menubar nav { display: none; }
+    .menubar .right span:not(.indicator-dot) { display: none; }
+    .menubar .right .clock { display: inline; color: #fff; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Menu bar -->
+  <div class="menubar">
+    <span class="prompt">
+      <span class="user">yugyeong</span><span class="at">@</span><span class="host">workstation</span><span class="at">:</span><span class="path">~/publications</span><span class="dollar">$</span>
+    </span>
+    <nav>
+      <a href="index.html">~</a>
+      <a href="publications.html" class="active">publications</a>
+      <a href="workshops.html">workshops</a>
+      <a href="cv.html">cv</a>
+      <a href="contact.html">contact</a>
+    </nav>
+    <div class="right">
+      <span><span class="indicator-dot"></span><span class="val">online</span></span>
+      <span>tz: <span class="val">KST</span></span>
+      <span class="clock" id="clock">--:--:--</span>
+    </div>
+  </div>
+
+
+  <div class="container">
+
+    <div class="page-head">
+      <h1>— publications</h1>
+      <div class="meta"><span class="num">n=3</span> · sorted by date</div>
+    </div>
+
+    <!-- [003] Adv Eng Informatics 2025 -->
+    <article class="pub">
+      <div class="pub-header">
+        <span class="pub-idx">[003]</span>
+        <span class="pub-venue"><span class="pub-year">2025</span> · advanced engineering informatics</span>
+      </div>
+      <a class="pub-title" href="https://www.sciencedirect.com/science/article/pii/S1474034625005373" target="_blank">generating command modeling and design graphs with data augmentation for enhanced 3d modeling support</a>
+      <div class="pub-authors"><span class="me">yugyeong jang</span> · kyung hoon hyun</div>
+      <p class="pub-abstract">
+        this study proposes a system that automatically generates 3d modeling sequences for various 3d shapes. we developed a method for inferring and extracting modeling sequences from 3d shapes to generate command modeling and design graphs without the need for additional modeling data collection. the proposed system infers modeling sequences from completed 3d models and converts them into workflow graphs, providing richer and more detailed sequence data compared to existing datasets.
+      </p>
+      <div class="pub-links">
+        <a href="https://www.sciencedirect.com/science/article/pii/S1474034625005373" target="_blank">[paper]</a>
+      </div>
+    </article>
+
+    <!-- [002] BIGcad / ADR 2025 -->
+    <article class="pub">
+      <div class="pub-header">
+        <span class="pub-idx">[002]</span>
+        <span class="pub-venue"><span class="pub-year">2025</span> · archives of design research</span>
+      </div>
+      <a class="pub-title" href="https://aodr.org/xml//45246/45246.pdf" target="_blank">BIGcad: assisting 3d cad modeling with workflow graph-driven bayesian command inference</a>
+      <div class="pub-authors">kyung hoon hyun · <span class="me">yugyeong jang</span></div>
+      <p class="pub-abstract">
+        designers continue to rely on command-based cad tools like rhino for precise and complex 3d modeling. to address this, we propose a framework combining a bayesian inference model and workflow graph to predict user intentions, suggesting tailored commands and sequences to improve precision and efficiency. the framework was developed as a rhino plugin. user studies show our system reduces errors, streamlines workflows, and offers effective command recommendations.
+      </p>
+      <div class="pub-links">
+        <a href="https://aodr.org/xml//45246/45246.pdf" target="_blank">[paper]</a>
+      </div>
+    </article>
+
+    <!-- [001] CHI 2024 LBW -->
+    <article class="pub">
+      <div class="pub-header">
+        <span class="pub-idx">[001]</span>
+        <span class="pub-venue"><span class="pub-year">2024</span> · ACM CHI 2024 LBW</span>
+      </div>
+      <a class="pub-title" href="https://dl.acm.org/doi/pdf/10.1145/3613905.3650895" target="_blank">advancing 3d cad with workflow graph-driven bayesian command inferences</a>
+      <div class="pub-authors"><span class="me">yugyeong jang</span> · kyung hoon hyun</div>
+      <p class="pub-abstract">
+        advancements in 3d generative ai have significantly improved design capabilities. however, the focus on mesh-based models limits opportunities for detailed modifications. addressing this, we propose a system that predicts user modeling steps using an inference model based on behavior, thereby promoting efficient workflow and precise command usage. user studies demonstrate that our system minimizes modeling errors, streamlines processes, and offers recommendations for effective command usage.
+      </p>
+      <div class="pub-links">
+        <a href="https://dl.acm.org/doi/pdf/10.1145/3613905.3650895" target="_blank">[paper]</a>
+        <a href="https://www.youtube.com/watch?v=8WnKztnuq1s" target="_blank">[video]</a>
+      </div>
+    </article>
+
+    <a href="index.html" class="back">← back to home</a>
+
+  </div>
+
+
+  <!-- Keybar -->
+  <div class="keybar">
+    <span class="key"><kbd>ESC</kbd>back</span>
+    <span class="key"><kbd>~</kbd>home</span>
+    <span class="key"><kbd>W</kbd>workshops</span>
+    <span class="key"><kbd>C</kbd>cv</span>
+    <span class="right">© yugyeong jang · 2026</span>
+  </div>
+
+
+  <script>
+    function tick() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const clk = document.getElementById('clock');
+      if (clk) clk.textContent = `${h}:${m}:${s}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      if (e.key === 'Escape' || key === '~') { window.location.href = 'index.html'; return; }
+      const routes = { 'p': 'publications.html', 'w': 'workshops.html', 'c': 'cv.html', 'm': 'contact.html' };
+      if (routes[key]) window.location.href = routes[key];
+    });
+  </script>
+
+</body>
+</html>

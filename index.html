@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>yugyeong jang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  html, body {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Main grid fills viewport between menubar (32px) and keybar (28px) */
+  .layout {
+    position: fixed;
+    top: 32px;
+    bottom: 28px;
+    left: 0; right: 0;
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    gap: 0;
+  }
+
+  /* ============ LEFT SIDEBAR ============ */
+  .sidebar-left {
+    border-right: 1px dashed #222;
+    padding: 1rem 1rem;
+    overflow-y: auto;
+    font-size: 11px;
+  }
+  .sidebar-left .hero {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed #222;
+  }
+  .sidebar-left .name {
+    font-size: 13px;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+  .sidebar-left .role {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 0.75rem;
+  }
+  .sidebar-left .bio {
+    font-size: 11px;
+    color: #aaa;
+    line-height: 1.55;
+  }
+  .sidebar-left .bio .hl {
+    background: #fff;
+    color: #000;
+    padding: 0 2px;
+  }
+
+  /* ============ CENTER ============ */
+  .center {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 1rem;
+  }
+
+  /* ASCII computer (top half) */
+  .computer-area {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .ascii {
+    font-size: 9px;
+    line-height: 1;
+    white-space: pre;
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0;
+  }
+  .ascii .cursor {
+    display: inline-block;
+    animation: blink 1.1s steps(2, start) infinite;
+  }
+  @keyframes blink {
+    to { visibility: hidden; }
+  }
+  .ascii-caption {
+    font-size: 10px;
+    color: #666;
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+
+  /* Workflow graph (bottom half) */
+  .graph-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .graph-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 11px;
+    color: #888;
+    padding: 0.5rem 0;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px dashed #333;
+  }
+  .graph-head .left { color: #fff; }
+  .graph-head .right { color: #666; font-size: 10px; }
+
+  .graph-wrap {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .graph-svg {
+    width: 100%;
+    height: 100%;
+    max-height: 240px;
+  }
+  .node-link { cursor: pointer; transition: opacity 0.15s; }
+  .node-link:hover { opacity: 0.7; }
+  .node-link:hover circle { stroke-width: 3; }
+
+  .graph-cmd {
+    font-size: 10px;
+    color: #444;
+    margin-top: 0.25rem;
+  }
+
+  /* ============ RIGHT SIDEBAR ============ */
+  .sidebar-right {
+    border-left: 1px dashed #222;
+    padding: 1rem;
+    overflow-y: auto;
+    font-size: 11px;
+  }
+  .moon-ascii {
+    font-size: 9px;
+    line-height: 1;
+    color: #888;
+    margin-top: 0.25rem;
+    white-space: pre;
+  }
+  .counter {
+    font-size: 11px;
+    color: #888;
+  }
+  .counter .num {
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 900px) {
+    html, body { overflow-y: auto; height: auto; }
+    .layout {
+      position: static;
+      grid-template-columns: 1fr;
+      padding: 40px 0 36px;
+    }
+    .sidebar-left, .sidebar-right {
+      border: none;
+      border-top: 1px dashed #222;
+      padding: 1rem;
+    }
+    .menubar nav { display: none; }
+    .menubar .right span:not(.indicator-dot) { display: none; }
+    .menubar .right .clock { display: inline; color: #fff; }
+    .ascii { font-size: 7px; }
+    .graph-svg { min-width: 600px; height: 240px; }
+    .graph-wrap { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ TOP MENU BAR ============ -->
+  <div class="menubar">
+    <span class="prompt">
+      <span class="user">yugyeong</span><span class="at">@</span><span class="host">workstation</span><span class="at">:</span><span class="path">~</span><span class="dollar">$</span>
+    </span>
+    <nav>
+      <a href="index.html" class="active">~</a>
+      <a href="publications.html">publications</a>
+      <a href="workshops.html">workshops</a>
+      <a href="cv.html">cv</a>
+      <a href="contact.html">contact</a>
+    </nav>
+    <div class="right">
+      <span><span class="indicator-dot"></span><span class="val">online</span></span>
+      <span>tz: <span class="val">KST</span></span>
+      <span class="clock" id="clock">--:--:--</span>
+    </div>
+  </div>
+
+
+  <!-- ============ MAIN 3-COLUMN LAYOUT ============ -->
+  <div class="layout">
+
+    <!-- ============ LEFT SIDEBAR ============ -->
+    <aside class="sidebar-left">
+
+      <div class="hero">
+        <div class="name">yugyeong jang</div>
+        <div class="role">researcher · seoul</div>
+        <div class="bio">
+          i study how designers think in <span class="hl">3d cad</span>. my work models workflows as graphs and uses bayesian inference to predict the next command.
+        </div>
+      </div>
+
+      <div class="widget">
+        <h4>stats</h4>
+        <div class="stat-row"><span class="l">papers</span><span class="v">3</span></div>
+        <div class="stat-row"><span class="l">workshops</span><span class="v">1</span></div>
+        <div class="stat-row"><span class="l">ongoing</span><span class="v active">1</span></div>
+        <div class="stat-row"><span class="l">plugins</span><span class="v">1</span></div>
+        <div class="stat-row"><span class="l">since</span><span class="v">2023</span></div>
+      </div>
+
+      <div class="widget">
+        <h4>branch</h4>
+        <div class="stat-row"><span class="l">current</span><span class="v active">data-aug v2</span></div>
+        <div class="stat-row"><span class="l">based on</span><span class="v">[003]</span></div>
+        <div class="stat-row"><span class="l">status</span><span class="v">ongoing</span></div>
+      </div>
+
+      <div class="widget">
+        <h4>system</h4>
+        <div class="stat-row"><span class="l">affil.</span><span class="v">hanyang</span></div>
+        <div class="stat-row"><span class="l">lab</span><span class="v">design inf.</span></div>
+        <div class="stat-row"><span class="l">role</span><span class="v">phd/ms</span></div>
+        <div class="stat-row"><span class="l">dept</span><span class="v">int. arch.</span></div>
+      </div>
+
+    </aside>
+
+
+    <!-- ============ CENTER ============ -->
+    <section class="center">
+
+      <div class="computer-area">
+<pre class="ascii">                       .,,uod8B8bou,,.
+              ..,uod8BBBBBBBBBBBBBBBBRPFT?l!i:.
+         ,=m8BBBBBBBBBBBBBBBRPFT?!||||||||||||||
+         !...:!TVBBBRPFT||||||||||!!^^""'    ||||
+         !.......:!?|||||!!^^""'   ___       ||||
+         !.........||||           /__/|      ||||
+         !.........||||           |  |/      ||||
+         !.........||||                      ||||
+         !.........||||   &gt; _ExtrudeCrv      ||||
+         !.........||||   &gt; _Cap<span class="cursor">_</span>            ||||
+         !.........||||                      ||||
+         `.........||||                    ,||||
+          .;.......||||               _.-!!|||||
+       .,uodWBBBBb.....||||       _.-!!|||||||||!:'
+     !YBBBBBBBBBBBBBBb..!|||:..-!!|||||||!iof68BBBBBb....
+     !..YBBBBBBBBBBBBBBb!!||||||||!iof68BBBBBBRPFT?!::      `.
+     !....YBBBBBBBBBBBBBBbaaitf68BBBBBBRPFT?!:::::::::         `.
+     !......YBBBBBBBBBBBBBBBBBBBRPFT?!::::::;:!^"`;::: `.
+     !........YBBBBBBBBBBRPFT?!::::::::::^''...::::::;      iBBbo.
+     `..........YBRPFT?!::::::::::::::::::::::::;iof68bo.   WBBBBbo.
+       `..........:::::::::::::::::::::::;iof688888888888b.  `YBBBP^'
+         `........::::::::::::::::;iof688888888888888888888b.   `
+           `......:::::::::;iof688888888888888888888888888888b.
+             `....:::;iof688888888888888888888888888888888899fT!
+               `..::!8888888888888888888888888888888899fT|!^"'
+                 `' !!988888888888888888888888899fT|!^"'
+                     `!!8888888888888888899fT|!^"'
+                         `!988888888899fT|!^"'
+                            `!9899fT|!^"'
+                                `!^"'</pre>
+        <div class="ascii-caption">— a desktop, where workflows happen</div>
+      </div>
+
+
+      <div class="graph-area">
+        <div class="graph-head">
+          <span class="left">— workflow graph &nbsp;<span style="color:#666; font-size:10px;">(click any node to open)</span></span>
+          <span class="right">nodes=4 · branches=2</span>
+        </div>
+
+        <div class="graph-wrap">
+          <svg class="graph-svg" viewBox="0 0 800 220" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Time axis (top) -->
+            <text x="80" y="14" font-family="'JetBrains Mono', monospace" font-size="9" fill="#666" text-anchor="middle">2024 · spring</text>
+            <text x="290" y="14" font-family="'JetBrains Mono', monospace" font-size="9" fill="#666" text-anchor="middle">2025 · early</text>
+            <text x="480" y="14" font-family="'JetBrains Mono', monospace" font-size="9" fill="#666" text-anchor="middle">2025 · late</text>
+            <text x="680" y="14" font-family="'JetBrains Mono', monospace" font-size="9" fill="#666" text-anchor="middle">ongoing</text>
+            <line x1="40" y1="22" x2="780" y2="22" stroke="#222" stroke-width="1" stroke-dasharray="2,3"/>
+
+            <!-- Branch reference lines -->
+            <line x1="40" y1="100" x2="780" y2="100" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,4"/>
+            <line x1="40" y1="180" x2="780" y2="180" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,4"/>
+
+            <!-- Branch labels -->
+            <text x="788" y="104" font-family="'JetBrains Mono', monospace" font-size="9" fill="#666">main/</text>
+            <text x="788" y="184" font-family="'JetBrains Mono', monospace" font-size="9" fill="#666">workshop/</text>
+
+            <!-- Edges -->
+            <g stroke="#c8f04e" stroke-width="1.5" fill="none">
+              <!-- main: LBW → BIGcad → AdvEng → next (ongoing) -->
+              <line x1="80" y1="100" x2="290" y2="100"/>
+              <line x1="290" y1="100" x2="480" y2="100"/>
+              <line x1="480" y1="100" x2="680" y2="100" stroke-dasharray="4,3"/>
+              <!-- workshop branch: forked from LBW down to workshop node -->
+              <path d="M 80 100 C 180 100, 180 180, 620 180" />
+            </g>
+
+            <!-- Nodes -->
+            <!-- [001] CHI 2024 LBW -->
+            <a href="https://dl.acm.org/doi/pdf/10.1145/3613905.3650895" target="_blank" class="node-link">
+              <circle cx="80" cy="100" r="10" fill="#c8f04e" stroke="#c8f04e" stroke-width="2"/>
+              <text x="80" y="74" font-family="'JetBrains Mono', monospace" font-size="9" fill="#c8f04e" text-anchor="middle" font-weight="500">CHI 2024 · LBW</text>
+              <text x="80" y="62" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666" text-anchor="middle">advancing 3d cad</text>
+              <text x="80" y="138" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666" text-anchor="middle">[001]</text>
+            </a>
+
+            <!-- [002] BIGcad / ADR -->
+            <a href="https://aodr.org/xml//45246/45246.pdf" target="_blank" class="node-link">
+              <circle cx="290" cy="100" r="10" fill="#c8f04e" stroke="#c8f04e" stroke-width="2"/>
+              <text x="290" y="74" font-family="'JetBrains Mono', monospace" font-size="9" fill="#c8f04e" text-anchor="middle" font-weight="500">ADR · 2025</text>
+              <text x="290" y="62" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666" text-anchor="middle">BIGcad · rhino plugin</text>
+              <text x="290" y="138" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666" text-anchor="middle">[002]</text>
+            </a>
+
+            <!-- [003] Adv Eng Informatics -->
+            <a href="https://www.sciencedirect.com/science/article/pii/S1474034625005373" target="_blank" class="node-link">
+              <circle cx="480" cy="100" r="10" fill="#c8f04e" stroke="#c8f04e" stroke-width="2"/>
+              <text x="480" y="74" font-family="'JetBrains Mono', monospace" font-size="9" fill="#c8f04e" text-anchor="middle" font-weight="500">ADV ENG INFORMATICS</text>
+              <text x="480" y="62" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666" text-anchor="middle">cmd modeling + graphs</text>
+              <text x="480" y="138" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666" text-anchor="middle">[003]</text>
+            </a>
+
+            <!-- [005] NEW ongoing (next paper, extending Adv Eng) - hollow circle -->
+            <a href="publications.html" class="node-link">
+              <circle cx="680" cy="100" r="10" fill="#000" stroke="#c8f04e" stroke-width="2"/>
+              <text x="680" y="74" font-family="'JetBrains Mono', monospace" font-size="9" fill="#c8f04e" text-anchor="middle" font-weight="500">NEXT PAPER</text>
+              <text x="680" y="62" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666" text-anchor="middle">extending data aug.</text>
+              <text x="680" y="138" font-family="'JetBrains Mono', monospace" font-size="8" fill="#c8f04e" text-anchor="middle">[005 · ongoing]</text>
+            </a>
+
+            <!-- [004] CHI 2025 Workshop - now FILLED (published) -->
+            <a href="https://arxiv.org/pdf/2503.16824" target="_blank" class="node-link">
+              <circle cx="620" cy="180" r="10" fill="#c8f04e" stroke="#c8f04e" stroke-width="2"/>
+              <text x="620" y="208" font-family="'JetBrains Mono', monospace" font-size="9" fill="#c8f04e" text-anchor="middle" font-weight="500">CHI 2025 · WORKSHOP</text>
+              <text x="620" y="220" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666" text-anchor="middle">multimodal cad</text>
+              <text x="620" y="162" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666" text-anchor="middle">[004]</text>
+            </a>
+
+          </svg>
+        </div>
+        <div class="graph-cmd">$ git log --graph --oneline --all</div>
+      </div>
+
+    </section>
+
+
+    <!-- ============ RIGHT SIDEBAR ============ -->
+    <aside class="sidebar-right">
+
+      <div class="widget">
+        <h4>links</h4>
+        <div class="stat-row"><a href="publications.html" style="text-decoration:none; color:#888;">publications</a><span class="v">3</span></div>
+        <div class="stat-row"><a href="workshops.html" style="text-decoration:none; color:#888;">workshops</a><span class="v">1</span></div>
+        <div class="stat-row"><a href="cv.html" style="text-decoration:none; color:#888;">cv</a><span class="v">.pdf</span></div>
+        <div class="stat-row"><a href="contact.html" style="text-decoration:none; color:#888;">contact</a><span class="v">↗</span></div>
+      </div>
+
+      <div class="widget">
+        <h4>elsewhere</h4>
+        <div class="stat-row"><a href="https://scholar.google.com/citations?hl=ko&user=XT38QbwAAAAJ" style="text-decoration:none; color:#888;" target="_blank">scholar</a><span class="v">↗</span></div>
+        <div class="stat-row"><a href="https://github.com/JangYugyeong28" style="text-decoration:none; color:#888;" target="_blank">github</a><span class="v">↗</span></div>
+        <div class="stat-row"><a href="https://www.linkedin.com/in/yugyeong-jang-9a7799253" style="text-decoration:none; color:#888;" target="_blank">linkedin</a><span class="v">↗</span></div>
+        <div class="stat-row"><a href="https://designinformatics.hanyang.ac.kr/People_Yugyeong-Jang" style="text-decoration:none; color:#888;" target="_blank">lab page</a><span class="v">↗</span></div>
+        <div class="stat-row"><a href="mailto:jjang020828@gmail.com" style="text-decoration:none; color:#888;">email</a><span class="v">↗</span></div>
+      </div>
+
+      <div class="widget">
+        <h4>page</h4>
+        <div class="counter"><span class="num">01</span> / 01</div>
+      </div>
+
+    </aside>
+
+  </div>
+
+
+  <!-- ============ FOOTER KEYBOARD BAR ============ -->
+  <div class="keybar">
+    <span class="key"><kbd>P</kbd>publications</span>
+    <span class="key"><kbd>W</kbd>workshops</span>
+    <span class="key"><kbd>C</kbd>cv</span>
+    <span class="key"><kbd>M</kbd>contact</span>
+    <span class="key"><kbd>↵</kbd>open node</span>
+    <span class="right">© yugyeong jang · 2026 · ascii: asciiart.eu</span>
+  </div>
+
+
+  <script>
+    // Live clock
+    function tick() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const clk = document.getElementById('clock');
+      if (clk) clk.textContent = `${h}:${m}:${s}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      const routes = {
+        'p': 'publications.html',
+        'w': 'workshops.html',
+        'c': 'cv.html',
+        'm': 'contact.html',
+        '~': 'index.html',
+      };
+      if (routes[key]) {
+        window.location.href = routes[key];
+      }
+    });
+  </script>
+
+</body>
+</html>

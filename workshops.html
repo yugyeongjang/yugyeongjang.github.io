@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>workshops · yugyeong jang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { padding: 50px 0 36px; }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+  }
+
+  .page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 0.75rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed #333;
+  }
+  .page-head h1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+  }
+  .page-head .meta { font-size: 11px; color: #666; }
+  .page-head .meta .num { color: #c8f04e; }
+
+  .pub {
+    padding: 1.5rem 0;
+    border-bottom: 1px dashed #222;
+  }
+  .pub:last-child { border-bottom: none; }
+
+  .pub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+    gap: 1rem;
+  }
+  .pub-idx { color: #c8f04e; font-size: 11px; flex-shrink: 0; }
+  .pub-venue {
+    color: #888;
+    font-size: 11px;
+    font-style: italic;
+    text-align: right;
+  }
+  .pub-year { color: #fff; margin-right: 0.5rem; }
+  .pub-status {
+    display: inline-block;
+    background: #c8f04e;
+    color: #000;
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-size: 10px;
+    margin-left: 0.5rem;
+  }
+
+  .pub-title {
+    font-size: 15px;
+    color: #fff;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .pub-title:hover { background: #fff; color: #000; text-decoration: none; }
+
+  .pub-authors {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 0.75rem;
+  }
+  .pub-authors .me { color: #fff; font-weight: 500; }
+
+  .pub-abstract {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    max-width: 720px;
+  }
+
+  .pub-links { font-size: 11px; }
+  .pub-links a {
+    color: #c8f04e;
+    margin-right: 0.75rem;
+  }
+  .pub-links a:hover { background: #c8f04e; color: #000; text-decoration: none; }
+
+  .back {
+    display: inline-block;
+    margin-top: 2rem;
+    font-size: 11px;
+    color: #888;
+    text-decoration: none;
+  }
+  .back:hover { color: #c8f04e; background: none; }
+
+  @media (max-width: 720px) {
+    .container { padding: 1rem; }
+    .pub-header { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+    .pub-venue { text-align: left; }
+    .menubar nav { display: none; }
+    .menubar .right span:not(.indicator-dot) { display: none; }
+    .menubar .right .clock { display: inline; color: #fff; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="menubar">
+    <span class="prompt">
+      <span class="user">yugyeong</span><span class="at">@</span><span class="host">workstation</span><span class="at">:</span><span class="path">~/workshops</span><span class="dollar">$</span>
+    </span>
+    <nav>
+      <a href="index.html">~</a>
+      <a href="publications.html">publications</a>
+      <a href="workshops.html" class="active">workshops</a>
+      <a href="cv.html">cv</a>
+      <a href="contact.html">contact</a>
+    </nav>
+    <div class="right">
+      <span><span class="indicator-dot"></span><span class="val">online</span></span>
+      <span>tz: <span class="val">KST</span></span>
+      <span class="clock" id="clock">--:--:--</span>
+    </div>
+  </div>
+
+
+  <div class="container">
+
+    <div class="page-head">
+      <h1>— workshops</h1>
+      <div class="meta"><span class="num">n=1</span></div>
+    </div>
+
+    <article class="pub">
+      <div class="pub-header">
+        <span class="pub-idx">[004]</span>
+        <span class="pub-venue"><span class="pub-year">2025</span> · CHI 2025 workshop · bridging HCI &amp; industrial manufacturing</span>
+      </div>
+      <a class="pub-title" href="https://arxiv.org/pdf/2503.16824" target="_blank">toward AI-driven multimodal interfaces for industrial CAD modeling</a>
+      <div class="pub-authors">jiin choi · <span class="me">yugyeong jang</span> · kyung hoon hyun</div>
+      <p class="pub-abstract">
+        ai-driven multimodal interfaces have the potential to revolutionize industrial 3d cad modeling by improving workflow efficiency and user experience. however, the integration of these technologies remains challenging due to software constraints, user adoption barriers, and limitations in ai model adaptability. this paper explores the role of multimodal ai in cad environments, examining its current applications, key challenges, and future research directions. we analyze bayesian workflow inference, multimodal input strategies, and collaborative ai-driven interfaces to identify areas where ai can enhance cad design processes.
+      </p>
+      <div class="pub-links">
+        <a href="https://arxiv.org/pdf/2503.16824" target="_blank">[paper]</a>
+      </div>
+    </article>
+
+    <a href="index.html" class="back">← back to home</a>
+
+  </div>
+
+
+  <div class="keybar">
+    <span class="key"><kbd>ESC</kbd>back</span>
+    <span class="key"><kbd>~</kbd>home</span>
+    <span class="key"><kbd>P</kbd>publications</span>
+    <span class="key"><kbd>C</kbd>cv</span>
+    <span class="right">© yugyeong jang · 2026</span>
+  </div>
+
+
+  <script>
+    function tick() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const clk = document.getElementById('clock');
+      if (clk) clk.textContent = `${h}:${m}:${s}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      if (e.key === 'Escape' || key === '~') { window.location.href = 'index.html'; return; }
+      const routes = { 'p': 'publications.html', 'w': 'workshops.html', 'c': 'cv.html', 'm': 'contact.html' };
+      if (routes[key]) window.location.href = routes[key];
+    });
+  </script>
+
+</body>
+</html>

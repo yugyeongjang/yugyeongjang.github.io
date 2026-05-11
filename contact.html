@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>contact · yugyeong jang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { padding: 50px 0 36px; min-height: 100vh; }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+  }
+
+  .page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 0.75rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px dashed #333;
+  }
+  .page-head h1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+  }
+  .page-head .meta { font-size: 11px; color: #666; }
+
+  .intro {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #ddd;
+    margin-bottom: 2.5rem;
+    max-width: 540px;
+  }
+
+  .contact-list {
+    margin-bottom: 2rem;
+  }
+  .contact-list .row {
+    display: grid;
+    grid-template-columns: 110px 1fr 30px;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    align-items: baseline;
+    border-bottom: 1px dashed #1a1a1a;
+    font-size: 13px;
+  }
+  .contact-list .row:last-child { border-bottom: none; }
+  .contact-list .row .label {
+    color: #888;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .contact-list .row a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .contact-list .row a:hover {
+    background: #c8f04e;
+    color: #000;
+    text-decoration: none;
+  }
+  .contact-list .row .arrow {
+    color: #c8f04e;
+    text-align: right;
+  }
+
+  .ascii-deco {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    line-height: 1;
+    color: #666;
+    white-space: pre;
+    text-align: center;
+    margin: 2.5rem 0;
+  }
+
+  .back {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 11px;
+    color: #888;
+    text-decoration: none;
+  }
+  .back:hover { color: #c8f04e; background: none; }
+
+  @media (max-width: 720px) {
+    .container { padding: 1rem; }
+    .contact-list .row { grid-template-columns: 90px 1fr 30px; gap: 0.5rem; }
+    .menubar nav { display: none; }
+    .menubar .right span:not(.indicator-dot) { display: none; }
+    .menubar .right .clock { display: inline; color: #fff; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="menubar">
+    <span class="prompt">
+      <span class="user">yugyeong</span><span class="at">@</span><span class="host">workstation</span><span class="at">:</span><span class="path">~/contact</span><span class="dollar">$</span>
+    </span>
+    <nav>
+      <a href="index.html">~</a>
+      <a href="publications.html">publications</a>
+      <a href="workshops.html">workshops</a>
+      <a href="cv.html">cv</a>
+      <a href="contact.html" class="active">contact</a>
+    </nav>
+    <div class="right">
+      <span><span class="indicator-dot"></span><span class="val">online</span></span>
+      <span>tz: <span class="val">KST</span></span>
+      <span class="clock" id="clock">--:--:--</span>
+    </div>
+  </div>
+
+
+  <div class="container">
+
+    <div class="page-head">
+      <h1>— contact</h1>
+      <div class="meta">always open to new collabs</div>
+    </div>
+
+    <p class="intro">
+      i'm always interested in conversations about 3d cad, design research, workflow modeling, and tools that learn from designers. feel free to reach out.
+    </p>
+
+    <div class="contact-list">
+
+      <div class="row">
+        <span class="label">email</span>
+        <a href="mailto:jjang020828@gmail.com">jjang020828@gmail.com</a>
+        <span class="arrow">↗</span>
+      </div>
+
+      <div class="row">
+        <span class="label">scholar</span>
+        <a href="https://scholar.google.com/citations?hl=ko&user=XT38QbwAAAAJ" target="_blank">google scholar</a>
+        <span class="arrow">↗</span>
+      </div>
+
+      <div class="row">
+        <span class="label">github</span>
+        <a href="https://github.com/JangYugyeong28" target="_blank">github.com/JangYugyeong28</a>
+        <span class="arrow">↗</span>
+      </div>
+
+      <div class="row">
+        <span class="label">linkedin</span>
+        <a href="https://www.linkedin.com/in/yugyeong-jang-9a7799253" target="_blank">linkedin.com/in/yugyeong-jang</a>
+        <span class="arrow">↗</span>
+      </div>
+
+      <div class="row">
+        <span class="label">lab page</span>
+        <a href="https://designinformatics.hanyang.ac.kr/People_Yugyeong-Jang" target="_blank">design informatics @ hanyang</a>
+        <span class="arrow">↗</span>
+      </div>
+
+      <div class="row">
+        <span class="label">based in</span>
+        <a>seoul, korea</a>
+        <span class="arrow"></span>
+      </div>
+
+    </div>
+
+
+<pre class="ascii-deco">     _______________
+    [               ]
+    [    .-""-.     ]
+    [   /      \    ]    say hello
+    [  | hello! |   ]    anytime
+    [   \      /    ]
+    [    `----'     ]
+    [_______________]</pre>
+
+
+    <a href="index.html" class="back">← back to home</a>
+
+  </div>
+
+
+  <div class="keybar">
+    <span class="key"><kbd>ESC</kbd>back</span>
+    <span class="key"><kbd>~</kbd>home</span>
+    <span class="key"><kbd>P</kbd>publications</span>
+    <span class="key"><kbd>W</kbd>workshops</span>
+    <span class="right">© yugyeong jang · 2026</span>
+  </div>
+
+
+  <script>
+    function tick() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const clk = document.getElementById('clock');
+      if (clk) clk.textContent = `${h}:${m}:${s}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      if (e.key === 'Escape' || key === '~') { window.location.href = 'index.html'; return; }
+      const routes = { 'p': 'publications.html', 'w': 'workshops.html', 'c': 'cv.html', 'm': 'contact.html' };
+      if (routes[key]) window.location.href = routes[key];
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+/* ============ RESET & BASE ============ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: #000;
+  color: #fff;
+  font-family: 'JetBrains Mono', 'Courier New', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+a:hover {
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+}
+
+/* ============ TOP MENU BAR ============ */
+.menubar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 32px;
+  background: #000;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: 11px;
+  color: #888;
+  z-index: 100;
+  gap: 1.25rem;
+  letter-spacing: 0.05em;
+}
+.menubar .prompt { color: #c8f04e; }
+.menubar .prompt .user { color: #fff; }
+.menubar .prompt .at, .menubar .prompt .path { color: #888; }
+.menubar .prompt .host { color: #fff; }
+.menubar .prompt .dollar { color: #c8f04e; margin-left: 4px; }
+
+.menubar nav {
+  display: flex;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+.menubar nav a {
+  color: #888;
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+.menubar nav a:hover {
+  color: #000;
+  background: #c8f04e;
+}
+.menubar nav a.active {
+  color: #c8f04e;
+  border-bottom: 1px solid #c8f04e;
+}
+
+.menubar .right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.menubar .right span { color: #666; }
+.menubar .right .val { color: #fff; }
+.menubar .indicator-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  background: #c8f04e;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ============ FOOTER KEYBOARD BAR ============ */
+.keybar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 28px;
+  background: #000;
+  border-top: 1px solid #1a1a1a;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: 11px;
+  color: #666;
+  z-index: 100;
+  gap: 1.5rem;
+  letter-spacing: 0.05em;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.keybar .key { color: #888; }
+.keybar .key kbd {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 10px;
+  margin-right: 4px;
+}
+.keybar .right {
+  margin-left: auto;
+  color: #444;
+}
+
+/* ============ SHARED WIDGET STYLES ============ */
+.widget {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #222;
+}
+.widget:last-child { border-bottom: none; }
+.widget h4 {
+  font-size: 10px;
+  color: #888;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 0;
+  font-size: 11px;
+}
+.stat-row .l { color: #888; }
+.stat-row .v { color: #fff; font-variant-numeric: tabular-nums; }
+.stat-row .v.zero { color: #444; }
+.stat-row .v.active { color: #c8f04e; }
