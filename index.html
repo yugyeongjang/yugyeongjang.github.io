@@ -192,10 +192,14 @@
     <nav>
       <a href="index.html" class="active">~</a>
       <a href="publications.html">publications</a>
-      <a href="workshops.html">workshops</a>
+      <a href="workshops.html">posters</a>
       <a href="cv.html">cv</a>
       <a href="contact.html">contact</a>
     </nav>
+    <div class="eyes" id="eyes">
+      <div class="eye"><div class="pupil"></div></div>
+      <div class="eye"><div class="pupil"></div></div>
+    </div>
     <div class="right">
       <span><span class="indicator-dot"></span><span class="val">online</span></span>
       <span>tz: <span class="val">KST</span></span>
@@ -220,8 +224,8 @@
 
       <div class="widget">
         <h4>stats</h4>
-        <div class="stat-row"><span class="l">papers</span><span class="v">3</span></div>
-        <div class="stat-row"><span class="l">workshops</span><span class="v">1</span></div>
+        <div class="stat-row"><span class="l">papers</span><span class="v">2</span></div>
+        <div class="stat-row"><span class="l">posters</span><span class="v">2</span></div>
         <div class="stat-row"><span class="l">ongoing</span><span class="v active">1</span></div>
         <div class="stat-row"><span class="l">plugins</span><span class="v">1</span></div>
         <div class="stat-row"><span class="l">since</span><span class="v">2023</span></div>
@@ -238,7 +242,7 @@
         <h4>system</h4>
         <div class="stat-row"><span class="l">affil.</span><span class="v">hanyang</span></div>
         <div class="stat-row"><span class="l">lab</span><span class="v">design inf.</span></div>
-        <div class="stat-row"><span class="l">role</span><span class="v">phd/ms</span></div>
+        <div class="stat-row"><span class="l">role</span><span class="v">ms</span></div>
         <div class="stat-row"><span class="l">dept</span><span class="v">int. arch.</span></div>
       </div>
 
@@ -371,8 +375,8 @@
 
       <div class="widget">
         <h4>links</h4>
-        <div class="stat-row"><a href="publications.html" style="text-decoration:none; color:#888;">publications</a><span class="v">3</span></div>
-        <div class="stat-row"><a href="workshops.html" style="text-decoration:none; color:#888;">workshops</a><span class="v">1</span></div>
+        <div class="stat-row"><a href="publications.html" style="text-decoration:none; color:#888;">publications</a><span class="v">2</span></div>
+        <div class="stat-row"><a href="workshops.html" style="text-decoration:none; color:#888;">posters</a><span class="v">2</span></div>
         <div class="stat-row"><a href="cv.html" style="text-decoration:none; color:#888;">cv</a><span class="v">.pdf</span></div>
         <div class="stat-row"><a href="contact.html" style="text-decoration:none; color:#888;">contact</a><span class="v">↗</span></div>
       </div>
@@ -399,7 +403,7 @@
   <!-- ============ FOOTER KEYBOARD BAR ============ -->
   <div class="keybar">
     <span class="key"><kbd>P</kbd>publications</span>
-    <span class="key"><kbd>W</kbd>workshops</span>
+    <span class="key"><kbd>W</kbd>posters</span>
     <span class="key"><kbd>C</kbd>cv</span>
     <span class="key"><kbd>M</kbd>contact</span>
     <span class="key"><kbd>↵</kbd>open node</span>
@@ -419,6 +423,26 @@
     }
     tick();
     setInterval(tick, 1000);
+
+    // Eyes follow mouse
+    const pupils = document.querySelectorAll('.menubar .pupil');
+    document.addEventListener('mousemove', (e) => {
+      pupils.forEach(pupil => {
+        const eye = pupil.parentElement;
+        const rect = eye.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = e.clientX - cx;
+        const dy = e.clientY - cy;
+        const angle = Math.atan2(dy, dx);
+        // max pupil offset: ~3px (eye radius is ~7, pupil radius 3)
+        const max = 3;
+        const dist = Math.min(max, Math.hypot(dx, dy) / 30);
+        const px = Math.cos(angle) * dist;
+        const py = Math.sin(angle) * dist;
+        pupil.style.transform = `translate(calc(-50% + ${px}px), calc(-50% + ${py}px))`;
+      });
+    });
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {

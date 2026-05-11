@@ -111,10 +111,14 @@
     <nav>
       <a href="index.html">~</a>
       <a href="publications.html">publications</a>
-      <a href="workshops.html">workshops</a>
+      <a href="workshops.html">posters</a>
       <a href="cv.html">cv</a>
       <a href="contact.html" class="active">contact</a>
     </nav>
+    <div class="eyes" id="eyes">
+      <div class="eye"><div class="pupil"></div></div>
+      <div class="eye"><div class="pupil"></div></div>
+    </div>
     <div class="right">
       <span><span class="indicator-dot"></span><span class="val">online</span></span>
       <span>tz: <span class="val">KST</span></span>
@@ -194,7 +198,7 @@
     <span class="key"><kbd>ESC</kbd>back</span>
     <span class="key"><kbd>~</kbd>home</span>
     <span class="key"><kbd>P</kbd>publications</span>
-    <span class="key"><kbd>W</kbd>workshops</span>
+    <span class="key"><kbd>W</kbd>posters</span>
     <span class="right">© yugyeong jang · 2026</span>
   </div>
 
@@ -210,6 +214,25 @@
     }
     tick();
     setInterval(tick, 1000);
+
+    // Eyes follow mouse
+    const pupils = document.querySelectorAll('.menubar .pupil');
+    document.addEventListener('mousemove', (e) => {
+      pupils.forEach(pupil => {
+        const eye = pupil.parentElement;
+        const rect = eye.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = e.clientX - cx;
+        const dy = e.clientY - cy;
+        const angle = Math.atan2(dy, dx);
+        const max = 3;
+        const dist = Math.min(max, Math.hypot(dx, dy) / 30);
+        const px = Math.cos(angle) * dist;
+        const py = Math.sin(angle) * dist;
+        pupil.style.transform = `translate(calc(-50% + ${px}px), calc(-50% + ${py}px))`;
+      });
+    });
 
     document.addEventListener('keydown', (e) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;

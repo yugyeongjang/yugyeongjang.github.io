@@ -136,10 +136,14 @@
     <nav>
       <a href="index.html">~</a>
       <a href="publications.html" class="active">publications</a>
-      <a href="workshops.html">workshops</a>
+      <a href="workshops.html">posters</a>
       <a href="cv.html">cv</a>
       <a href="contact.html">contact</a>
     </nav>
+    <div class="eyes" id="eyes">
+      <div class="eye"><div class="pupil"></div></div>
+      <div class="eye"><div class="pupil"></div></div>
+    </div>
     <div class="right">
       <span><span class="indicator-dot"></span><span class="val">online</span></span>
       <span>tz: <span class="val">KST</span></span>
@@ -152,7 +156,7 @@
 
     <div class="page-head">
       <h1>— publications</h1>
-      <div class="meta"><span class="num">n=3</span> · sorted by date</div>
+      <div class="meta"><span class="num">n=2</span> · sorted by date</div>
     </div>
 
     <!-- [003] Adv Eng Informatics 2025 -->
@@ -187,22 +191,7 @@
       </div>
     </article>
 
-    <!-- [001] CHI 2024 LBW -->
-    <article class="pub">
-      <div class="pub-header">
-        <span class="pub-idx">[001]</span>
-        <span class="pub-venue"><span class="pub-year">2024</span> · ACM CHI 2024 LBW</span>
-      </div>
-      <a class="pub-title" href="https://dl.acm.org/doi/pdf/10.1145/3613905.3650895" target="_blank">advancing 3d cad with workflow graph-driven bayesian command inferences</a>
-      <div class="pub-authors"><span class="me">yugyeong jang</span> · kyung hoon hyun</div>
-      <p class="pub-abstract">
-        advancements in 3d generative ai have significantly improved design capabilities. however, the focus on mesh-based models limits opportunities for detailed modifications. addressing this, we propose a system that predicts user modeling steps using an inference model based on behavior, thereby promoting efficient workflow and precise command usage. user studies demonstrate that our system minimizes modeling errors, streamlines processes, and offers recommendations for effective command usage.
-      </p>
-      <div class="pub-links">
-        <a href="https://dl.acm.org/doi/pdf/10.1145/3613905.3650895" target="_blank">[paper]</a>
-        <a href="https://www.youtube.com/watch?v=8WnKztnuq1s" target="_blank">[video]</a>
-      </div>
-    </article>
+    <!-- [001] CHI 2024 LBW moved to posters page -->
 
     <a href="index.html" class="back">← back to home</a>
 
@@ -213,7 +202,7 @@
   <div class="keybar">
     <span class="key"><kbd>ESC</kbd>back</span>
     <span class="key"><kbd>~</kbd>home</span>
-    <span class="key"><kbd>W</kbd>workshops</span>
+    <span class="key"><kbd>W</kbd>posters</span>
     <span class="key"><kbd>C</kbd>cv</span>
     <span class="right">© yugyeong jang · 2026</span>
   </div>
@@ -230,6 +219,25 @@
     }
     tick();
     setInterval(tick, 1000);
+
+    // Eyes follow mouse
+    const pupils = document.querySelectorAll('.menubar .pupil');
+    document.addEventListener('mousemove', (e) => {
+      pupils.forEach(pupil => {
+        const eye = pupil.parentElement;
+        const rect = eye.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = e.clientX - cx;
+        const dy = e.clientY - cy;
+        const angle = Math.atan2(dy, dx);
+        const max = 3;
+        const dist = Math.min(max, Math.hypot(dx, dy) / 30);
+        const px = Math.cos(angle) * dist;
+        const py = Math.sin(angle) * dist;
+        pupil.style.transform = `translate(calc(-50% + ${px}px), calc(-50% + ${py}px))`;
+      });
+    });
 
     document.addEventListener('keydown', (e) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
