@@ -81,10 +81,38 @@
     color: #fff;
     margin: 0;
     letter-spacing: 0;
+    transition: color 0.1s;
   }
-  .ascii .cursor {
+  /* Computer wrap allows overlay positioning */
+  .computer-wrap {
+    position: relative;
+    display: inline-block;
+    cursor: default;
+  }
+  /* Command overlay sits inside the screen area of the ASCII computer */
+  .screen-overlay {
+    position: absolute;
+    /* Position over the empty screen area of the ASCII art */
+    top: 4.5em;   /* roughly under the wireframe cube */
+    left: 13em;   /* inside the screen on the left side */
+    font-size: 9px;
+    line-height: 1.2;
+    color: #c8f04e;
+    pointer-events: none;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  .screen-overlay .cmd-line {
+    white-space: nowrap;
+  }
+  .screen-overlay .prompt-arrow {
+    color: #888;
+    margin-right: 2px;
+  }
+  .ascii .cursor,
+  .screen-overlay .cursor {
     display: inline-block;
     animation: blink 1.1s steps(2, start) infinite;
+    color: #c8f04e;
   }
   @keyframes blink {
     to { visibility: hidden; }
@@ -253,7 +281,8 @@
     <section class="center">
 
       <div class="computer-area">
-<pre class="ascii">                       .,,uod8B8bou,,.
+        <div class="computer-wrap">
+<pre class="ascii" id="computer-ascii">                       .,,uod8B8bou,,.
               ..,uod8BBBBBBBBBBBBBBBBRPFT?l!i:.
          ,=m8BBBBBBBBBBBBBBBRPFT?!||||||||||||||
          !...:!TVBBBRPFT||||||||||!!^^""'    ||||
@@ -261,8 +290,8 @@
          !.........||||           /__/|      ||||
          !.........||||           |  |/      ||||
          !.........||||                      ||||
-         !.........||||   &gt; _ExtrudeCrv      ||||
-         !.........||||   &gt; _Cap<span class="cursor">_</span>            ||||
+         !.........||||                      ||||
+         !.........||||                      ||||
          !.........||||                      ||||
          `.........||||                    ,||||
           .;.......||||               _.-!!|||||
@@ -283,6 +312,11 @@
                          `!988888888899fT|!^"'
                             `!9899fT|!^"'
                                 `!^"'</pre>
+          <div class="screen-overlay" id="screen-overlay">
+            <div class="cmd-line"><span class="prompt-arrow">&gt;</span> <span id="cmd-1"></span></div>
+            <div class="cmd-line"><span class="prompt-arrow">&gt;</span> <span id="cmd-2"></span><span class="cursor">_</span></div>
+          </div>
+        </div>
         <div class="ascii-caption">— a desktop, where workflows happen</div>
       </div>
 
@@ -443,6 +477,102 @@
         pupil.style.transform = `translate(calc(-50% + ${px}px), calc(-50% + ${py}px))`;
       });
     });
+
+    // =================================================================
+    // ASCII COMPUTER LIVE LOG — types command sequences endlessly
+    // =================================================================
+    // Real Rhino commands that BIGcad would predict
+    const CMD_SEQUENCES = [
+      ['_ExtrudeCrv', '_Cap'],
+      ['_BooleanUnion', '_FilletEdge'],
+      ['_PolyLine', '_Extrude'],
+      ['_Loft', '_Cap'],
+      ['_Sweep1', '_FilletSrf'],
+      ['_OffsetSrf', '_BooleanDiff'],
+      ['_Revolve', '_Cap'],
+      ['_NetworkSrf', '_Join'],
+      ['_Mirror', '_BooleanUnion'],
+      ['_ArrayPolar', '_Group'],
+    ];
+
+    const cmd1El = document.getElementById('cmd-1');
+    const cmd2El = document.getElementById('cmd-2');
+    const cursor = document.querySelector('.screen-overlay .cursor');
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    async function typeText(el, text, speed = 50) {
+      el.textContent = '';
+      for (let i = 0; i < text.length; i++) {
+        el.textContent += text[i];
+        await sleep(speed + Math.random() * 30);
+      }
+    }
+
+    async function commandLoop() {
+      while (true) {
+        const seq = pick(CMD_SEQUENCES);
+
+        // Clear both lines
+        cmd1El.textContent = '';
+        cmd2El.textContent = '';
+
+        // Type first command (cursor stays on second line)
+        await typeText(cmd1El, seq[0]);
+        await sleep(400);
+
+        // Type second command
+        await typeText(cmd2El, seq[1]);
+        await sleep(1800);  // pause to "read"
+
+        // Brief "thinking" pause then clear & repeat
+        cmd2El.textContent = '';
+        await sleep(200);
+        cmd1El.textContent = '';
+        await sleep(400);
+      }
+    }
+    if (cmd1El) commandLoop();
+
+
+    // =================================================================
+    // GLITCH on hover — random chars replace original briefly
+    // =================================================================
+    const asciiEl = document.getElementById('computer-ascii');
+    const computerWrap = document.querySelector('.computer-wrap');
+    let originalAscii = asciiEl ? asciiEl.textContent : null;
+    let glitchInterval = null;
+    const GLITCH_CHARS = '!?#@$%&*+=<>|\\/░▒▓█';
+
+    function glitchOnce() {
+      if (!originalAscii) return;
+      const arr = originalAscii.split('');
+      // Replace ~3% of non-space chars with glitch chars
+      const count = Math.floor(arr.length * 0.03);
+      for (let i = 0; i < count; i++) {
+        const idx = Math.floor(Math.random() * arr.length);
+        if (arr[idx] !== ' ' && arr[idx] !== '\n') {
+          arr[idx] = GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+        }
+      }
+      asciiEl.textContent = arr.join('');
+    }
+
+    if (computerWrap && asciiEl) {
+      computerWrap.addEventListener('mouseenter', () => {
+        glitchInterval = setInterval(glitchOnce, 80);
+      });
+      computerWrap.addEventListener('mouseleave', () => {
+        if (glitchInterval) {
+          clearInterval(glitchInterval);
+          glitchInterval = null;
+        }
+        // restore
+        asciiEl.textContent = originalAscii;
+      });
+    }
+
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
