@@ -92,9 +92,9 @@
   /* Command overlay sits inside the screen area of the ASCII computer */
   .screen-overlay {
     position: absolute;
-    /* Position over the empty screen area of the ASCII art */
-    top: 4.5em;   /* roughly under the wireframe cube */
-    left: 13em;   /* inside the screen on the left side */
+    /* Position over the lower portion of the screen, below the bookshelf */
+    top: 10em;
+    left: 13em;
     font-size: 9px;
     line-height: 1.2;
     color: #c8f04e;
@@ -224,10 +224,6 @@
       <a href="cv.html">cv</a>
       <a href="contact.html">contact</a>
     </nav>
-    <div class="eyes" id="eyes">
-      <div class="eye"><div class="pupil"></div></div>
-      <div class="eye"><div class="pupil"></div></div>
-    </div>
     <div class="right">
       <span><span class="indicator-dot"></span><span class="val">online</span></span>
       <span>tz: <span class="val">KST</span></span>
@@ -286,12 +282,14 @@
               ..,uod8BBBBBBBBBBBBBBBBRPFT?l!i:.
          ,=m8BBBBBBBBBBBBBBBRPFT?!||||||||||||||
          !...:!TVBBBRPFT||||||||||!!^^""'    ||||
-         !.......:!?|||||!!^^""'   ___       ||||
-         !.........||||           /__/|      ||||
-         !.........||||           |  |/      ||||
-         !.........||||                      ||||
-         !.........||||                      ||||
-         !.........||||                      ||||
+         !.......:!?|||||!!^^""'             ||||
+         !.........||||      __________      ||||
+         !.........||||     /_/_/_/_/_/|     ||||
+         !.........||||    |.||.|.|.||.|     ||||
+         !.........||||    |_||_|_|_||_|     ||||
+         !.........||||    |.||.||.||..|     ||||
+         !.........||||    |_||_||_||__|     ||||
+         !.........||||    |____o____.|/     ||||
          !.........||||                      ||||
          `.........||||                    ,||||
           .;.......||||               _.-!!|||||
@@ -457,26 +455,6 @@
     }
     tick();
     setInterval(tick, 1000);
-
-    // Eyes follow mouse
-    const pupils = document.querySelectorAll('.menubar .pupil');
-    document.addEventListener('mousemove', (e) => {
-      pupils.forEach(pupil => {
-        const eye = pupil.parentElement;
-        const rect = eye.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const dx = e.clientX - cx;
-        const dy = e.clientY - cy;
-        const angle = Math.atan2(dy, dx);
-        // max pupil offset: ~3px (eye radius is ~7, pupil radius 3)
-        const max = 3;
-        const dist = Math.min(max, Math.hypot(dx, dy) / 30);
-        const px = Math.cos(angle) * dist;
-        const py = Math.sin(angle) * dist;
-        pupil.style.transform = `translate(calc(-50% + ${px}px), calc(-50% + ${py}px))`;
-      });
-    });
 
     // =================================================================
     // ASCII COMPUTER LIVE LOG — types command sequences endlessly
